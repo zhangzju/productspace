@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello Bulma!</title>
+    <link rel="stylesheet" href="bulma.css">
+    <script defer src="all.js"></script>
+</head>
+
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">
+                Hello World
+            </h1>
+            <p id="content">
+
+            </p>
+            <a class="button is-primary" id="download">
+                    Button
+            </a>
+        </div>
+    </section>
+    <script src="axios.js"></script>
+    <script src="vue.js"></script>
+    <script>
+        axios.get('/test')
+            .then(function (response) {
+                let model = response.data[0][0];
+                let spec = response.data[0][1][0][0];
+                let date = response.data[0][1][0][1][0][0];
+                let file = response.data[0][1][0][1][0][1][0][0];
+                document.querySelector("#content").innerHTML = file;
+                document.querySelector("#download").href = '/download?model=' + model + "&spec="+spec+'&date='+date+'&filename='+file;
+                console.log(file);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    </script>
+</body>
+
+</html>

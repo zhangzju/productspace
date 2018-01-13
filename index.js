@@ -8,12 +8,14 @@ var app = express();
 
 let model;
 
+app.use(express.static('public'));
+
 app.get('/', function (req, res) {
   fs.readdir(".",function(err, files){
     if(err) {
       res.send("Error!");
     }
-    res.send(files);
+    res.sendFile("public/index.html");
   });
 })
 
