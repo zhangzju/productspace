@@ -55,10 +55,10 @@ function walk(dir) {
       let path = dir+"/"+filename  
       let stat = fs.statSync(path)  
       if (stat && stat.isDirectory()) {  
-          children.push([filename,walk(path)]); 
+          children.push({isdir:true,filename:filename,content:walk(path)}); 
       }  
       else {  
-          children.push([filename,path]);
+          children.push({isdir:false,filename:filename,path:path});
       }  
   })  
 

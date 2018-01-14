@@ -16,7 +16,12 @@
                 Hello World
             </h1>
             <p id="content">
-
+                <p>Model:</p>
+                   <ul id="model"></ul>
+                   <p>Spec:</p>
+                   <ul id="spec"></ul>
+                   <p>Date:</p>
+                   <ul id="date"></ul> 
             </p>
             <a class="button is-primary" id="download">
                     Button
@@ -28,13 +33,17 @@
     <script>
         axios.get('/test')
             .then(function (response) {
-                let model = response.data[0][0];
-                let spec = response.data[0][1][0][0];
-                let date = response.data[0][1][0][1][0][0];
-                let file = response.data[0][1][0][1][0][1][0][0];
-                document.querySelector("#content").innerHTML = file;
-                document.querySelector("#download").href = '/download?model=' + model + "&spec="+spec+'&date='+date+'&filename='+file;
-                console.log(file);
+                // document.querySelector("#content").innerHTML = file;
+                // document.querySelector("#download").href = '/download?model=' + model + "&spec="+spec+'&date='+date+'&filename='+file;
+                let info = response.data;
+                console.log(response.data[0]);
+                info.forEach(element => {
+                    if(element.isdir){
+                        let dir = document.createElement("li");
+                        dir.innerText = element.filename;
+                        document.querySelector("#model").appendChild(dir);
+                    }
+                });
             })
             .catch(function (error) {
                 console.log(error);
